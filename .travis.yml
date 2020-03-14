@@ -1,0 +1,6 @@
+# Test languagge
+language: node_js
+
+# Test against this version of Node.js
+node_js: 
+  - "12"
