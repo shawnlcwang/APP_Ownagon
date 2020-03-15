@@ -9,7 +9,7 @@ jsf.extend("faker", function(){
     return faker; 
 })
 
-let outputFile = "./src/api/db.json"; 
+let outputFile = "./src/dmbs/mockApi/db.json"; 
 //const json = JSON.stringify(jsf(schema)); 
 console.log(jsf.version);
 console.log(schema); 

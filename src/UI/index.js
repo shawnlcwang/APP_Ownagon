@@ -1,4 +1,4 @@
-import {getUsers, deleteUsers} from './api/userApi'; 
+import {getUsers, deleteUsers} from '../dbms/mockApi/userApi'; 
 import './index.css'; 
 // import numeral from 'numeral'; 
 

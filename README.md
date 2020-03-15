@@ -1,126 +1,172 @@
-JavaScript Node.js Development Environment: Node Application Boiler Plate/Starter Kit
+0. Ownagon Project Structure
+- UI (static)
+- REST API (non-static)
+    + routes + controller (HTTP logic)=> services + db models (businness logic)=> database/external api
+- Project Structure: 
+    + APP
+      |__________node_modules
+      |
+      |__________scripts
+      |
+      |__________dist
+      |
+      |__________src
+      |           |__________config
+      |           |           
+      |           |__________routes
+      |           |           
+      |           |__________services
+      |           |
+      |           |__________dbms
+      |           |
+      |           |__________UI
+      |           |
+      |           |__________app.js
+      |
+      |__________other_configs
+      |
+      |__________webpack.configs
+      |
+      |__________package.json
+      |
+      |__________README.md
 
-1. Editors Configuration 
-- config file: /.editorconfig (customizable) 
-- editor: Visual Studio Code/Atom (plugin installatiion required) 
 
-2. Package Management
-- config file: /package.json (customizable)  
-- dir: node_modules (npm i / npm install: install all the JS dev-env npm packages) 
-- manager: Node Package Manager (npm)
-- package updates: npm outdated => npm update / npm install <package>@latest / npm install <package>@<x.y.z SemVers>
 
-3. Development Web Server
-- starter file: /buildScripts/srcServer.js (boiler plate) 
-- starter file: /src/index.html (boiler plate) 
-- package file: /ngrok.exe (dev-in-progress sharing)
-- dev-webserver framework: Express (configurable & production grade)
-- dev-in-progress sharing: ngrok (./ngrok authtoken 1YgrbFfKyaBzPDEq9Vl9Fv2hQr9_2J5g2hdRBH8D9wuqMxgHn => ngrok http port# => url sharing)
+1. Setup Node JS Development Environment
+- webserver framework: node.js
+- package manager: npm 
+- package config file: /package.json 
+    + npm init
+    + "main": "./src/app.js" 
+- bundling config file: 
+    + 
+- linting config file: /.eslintrc.js
+    + node node_modules\eslint\bin\eslint.js --init
+    + use a popular style guide: JS Airbnb style guides
+    + disable no-console: /* eslint-disable no-console */
+- CI Linux/Mac config file: /.travis.yml
+  + 
+- CI Windows config file: /.appveyor.yml
 
-4. Tasks Automation 
-- config file: /package.json ("scripts":{})
-- automation: npm scripts (use tools directly & no separate plugins)
-- scripts options: npm run <start/security/fix/share/lint/test/mock-data/mock-api/build/deploy>
 
-5. JS Versions Transpiling (post-2015: ES6/ES7/ES8 => post-2009: ES5)
-- config file: /.babelrc (non npm specific)  
-- alternative file: /package.json ("babel":{})
-- transpiler: Babel 
-- altervative transpilers: TypeScript (superset of ES6) / Elm (different syntax)]
+- app-dependency packages: 
+    + npm install express --save
+    + npm install chalk (chalk.<color>())
+    + npm install debug ($env:DEBUG='*';node app.js) 
+    + npm install morgan (network traffic)
+- dev-dependency packages: 
+    + npm install eslint --save-dev (additional: VS install ESlint extension)
+    + npm install nodemon --save-dev (/package.json: "nodemonConfig"{})
+    + npm install npm-run-all --save-dev (run multiple npm scripts in par/seq)
+- package config scripts {automation}: /package.json 
+    + "start": "nodemon main"
+    + "debug": "@powershell -Command $env:DEBUG='app:*';nodemon main"
+    + "lint": "eslint main"
 
-6. JS Modules Bundling (bundle different JS modules => single executable browser JS file )
-- config file: /webpack.config.dev.js (webpack bundler configuration)
-- config file: /webpack.config.prod.js
-- starter file: /src/index.js
-- starter file: /src/index.css
-- module format: ES6 modules 
-- alternative module formats: IIFE / AsynchronousMD / CommonJS / UniversalMD (past formats)
-- bundler: Webpack 
-- alternative bundlers: Broswerify / Rollup / JSPM
-- sourcemap: Webpack configuration {devtool: 'inline-source-map'} & use "debugger" keyword
 
-7. JS Linting 
-- config file: /.eslintrc.json (non npm specific)  
-- alternative file: /package.json ("eslintConfig":{})
-- linter: ESLint
-- alternative linters: JSLint / JSHint
-- rules: using recommended preset
-- rules-warning/error: "no-console": 1 / "no-console": 2
-- plugin: "plugin:import/errors", "plugin:import/warnings" 
-- preset: "eslint:recommended"
 
-8. JS Unit Testing 
-- config file: /buildScripts/testSetup.js
-- starter file: /src/index.test.js
-- testing framework: Mocha  
-- assertion library: Chai 
-- helper library: JSDOM
-- testing environment: Node (testing alongside src files upon save)
+2. Use Template Engines with Express
+- template file: /UI/views/index.ejs 
+    + //app.use(express.static(path.join(__dirname, '/UI'), { index: false })); 
+    + app.use(express.static()) 
+- alternative template file: /UI/views/template.pug
+- alternative template file: /UI/views/template.ejs
+- template engines: jade(renamed: pug)
+    + npm install pug 
+- alternative engines: EJS 
+    + npm install ejs (addtional: VS code install EJS support extension)
+- templates: bootstrap zero
 
-9. JS Continuous Intergration (CI) Testing for Production 
-- config file: /.travis.yml
-- CI servers: Travis (Linux/Mac) 
-- config file: /.appveyor.yml
-- CI servers: Appveyor (Windows)
-- Git environment: git status > git add . > git commit -m "<msg>" > git push 
+3. Express Middleware/Function
+- app.js file: 
+    + const express = require('express');
+    + const router = express().Router();
+- application-level middleware: <obj app = express()>
+    + app.use(function (req, res, next) {
+        next()
+    })
+    + app.METHOD() functions
+- router-level middleware: <obj router = express().Router()>
+    + router.use(function (req, res, next) {
+        next()
+    })
+    + router.METHOD() functions
+- error-handling middleware: <function (err, req, res, next)>
+    + app.use(function (err, req, res, next) {
+        console.error(err.stack)
+        next()
+    })
+- built-in middleware: 
+    + express.static()
+    + express.json()
+    + express.raw()
+    + express.text()
+    + express.urlencoded()
+- third-party middleware: 
+    + Use third-party middleware to add functionality to Express apps
 
-10. HTTP Calls APIs
-- centralized API file: /src/api/userApi.js 
-- HTTP call server Node apporach: Node (request module)
-- alternative server Node approach: Node (http module)
-- HTTP call client browser approach: Fetch 
-- alternative client browser approach: XMLHttpRequest/jQuery/Angular
-- HTTP call Node & browser approach: isomorphic-fetch/xhr/SuperAgent/Axios
-- potential browser polyfill: https://polyfill.io/
+4. Routing 
+- router.js file: 
+    + const express = require('express');
+    + const router = express().Router();
+- application-level middleware: <app.js>
+    + app.use('/books', bookRouter);
+- router-level middleware: <router.js>
+    + bookRouter.route('/').METHOD()
+    + bookRouter.route('/:id').METHOD()
 
-11. Mock HTTP Calls APIs for Prototyping/Testing 
-- starter file: /buildScripts/mockDataSchema.js
-- starter file: /buildScripts/mockData.js
-- starter database: /src/api/db.json
-- Mock schema: JSON Schema Faker (npm install faker)
-- Mock data: JSON Schema Faker (faker.js/chance.js/randexp.js)
-- starter file: /src/api/baseUrl.js (/?useMockApi=true)
-- Mock HTTP calls API: JSON Server (allow data manipulation get/delete)
-- alternative mock API: Nock/static JSON/Express
+5. SQL & NoSQL Databases (MS Azure & MongoDB: mongo client/mongod server)
+- app.js file: 
+    + const sql = require('mssql');
+    + optional approach only in router-level for NoSQL
+- adminRoutes.js/bookRoutes.js file: 
+    + const sql = require('mssql');
+    + const mongoClient = require('mongodb').MongoClient;
+- application-level middleware: <app.js>
+    + const config {}; 
+    + sql.connect(config).catch((err) => debug(err));
+- router-level middleware: <router.js>
+    + bookRouter.route('/').METHOD((req, res) => {((asyn query){await}());})
+    + bookRouter.route('/:id').METHOD((req, res) => {((asyn query){await}());})
+- npm packages: 
+    + npm install mssql
+    + npm install body-parser
 
-12. Project Structure 
-- files organization: by feature (NOT by file type)
+6. Authentication 
+- index.ejs file: 
+    + <form>
+    + <input>
+- app.js file: 
+    + const bodyParser = require('body-parser');
+    + const passport = require('passport');
+    + const cookieParser = require('cookie-parser');
+    + const session = require('express-session');
+- authRoutes.js file:
+- config directory: 
+    + passport.js
+    + local.strategy.js
+- npm packages: 
+    + npm install passport
+    + npm install cookie-parser
+    + npm install express-session
+    + npm install passport-local <strategy>
 
-13. Production Build 
-- config file: /webpack.config.prod.js (webpack bundler configuration)
-- starter file: build.js
-- starter file: distServer.js
-- minification: /webpack.config.prod.js (optimization:[minimize])
-- dynamic HTML: /webpack.config.prod.js (plugin: [HtmlWebpackPlugin])
-- bundle splitting: /webpack.config.prod.js (optimization:[splitChunks])
-- cache busting: /webpack.config.prod.js (plugin: [WebpackMd5Hash])
-- bundle extracting css from html: /webpack.config.prod.js (plugin: [MiniCssExtractPlugin])
-- JS error logging: Track.js (recommended but optional: due to $ PRICING COST $) 
+- application-level middleware: <app.js>
+    + app.use(bodyParser.json()); 
+    + app.use(bodyParser.urlencoded({ extended: false })); 
+    + app.use(cookieParser());
+    + app.use(session({ secret: 'library' }));
+    + require('./config/passport.js')(app); <separating file>
+- router-level middleware: <router.js>
+    + authRouter.route('/signUp').METHOD((req, res) => {((asyn query){await}());})
 
-14. Production Deployment 
-- Surge UI config file: /package.json ("scripts":{})
-- Heroku API starter file: /app.json 
-- Heroku API starter file: /Procfile  
-- Heroku API link file: /src/api/baseUrl.js
-- Heroku cmds: 
-    + heroku login 
-    + heroku create 
-    + heroku git:remote -a <still-garden-98048>
-    + git push heroku master
-- separating projects approach: 
-    + frontend static: UI project 
-    + backend non-static: REST API project 
-- cloud hosting: Surge (host UI) + Heroku (host API)
-    + static: Github/Netlify/Surge
-    + non-static: AWS/MS Azure/Google Could/Heroku/Firebase
-    
-15. Production Ready
-- 1. development: npm start 
-- 2. production build: npm run build
-- 3. production deploy: npm run deploy
-
-16. Production Updates: GitHub vs. NPM
-- 1. Host on Github
-- 2. Fork <starter kit> for new project
-- 3. Pull Changes from master
-
+7. Third-Party APIs with Express
+- 3rd-party API: goodreads.com/api
+    + applicaiton name: Ownagon
+    + company name: Ownagon
+    + key: zIKByBcldOpKGkAmiSCyg
+    + secret: t25OWCoK9VKIoAFbRIjJ9lclt5AQvN9nxBsXCyFE
+- npm packages: 
+    +   npm install axios
+    +   npm install xml2js
