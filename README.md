@@ -32,7 +32,6 @@
       |__________README.md
 
 
-
 1. Setup Node JS Development Environment
 - webserver framework: node.js
 - package manager: npm 
@@ -46,15 +45,19 @@
     + use a popular style guide: JS Airbnb style guides
     + disable no-console: /* eslint-disable no-console */
 - CI Linux/Mac config file: /.travis.yml
-  + 
+    + Git env: git status > git add . > git commit -m "<msg>" > git push 
 - CI Windows config file: /.appveyor.yml
-
-
+    + Git env: git status > git add . > git commit -m "<msg>" > git push 
 - app-dependency packages: 
     + npm install express --save
     + npm install chalk (chalk.<color>())
-    + npm install debug ($env:DEBUG='*';node app.js) 
     + npm install morgan (network traffic)
+    + npm install debug ($env:DEBUG='*';node app.js) 
+    + npm install ejs (template engine)
+    + npm install mongodb 
+    + npm install passport
+    + npm install cookie-parser
+    + npm install express-session
 - dev-dependency packages: 
     + npm install eslint --save-dev (additional: VS install ESlint extension)
     + npm install nodemon --save-dev (/package.json: "nodemonConfig"{})
@@ -65,20 +68,18 @@
     + "lint": "eslint main"
 
 
-
-2. Use Template Engines with Express
+2. Setup View Templates using Template Engines
+- templates: bootstrap zero - rapid 
 - template file: /UI/views/index.ejs 
-    + //app.use(express.static(path.join(__dirname, '/UI'), { index: false })); 
-    + app.use(express.static()) 
-- alternative template file: /UI/views/template.pug
-- alternative template file: /UI/views/template.ejs
-- template engines: jade(renamed: pug)
-    + npm install pug 
-- alternative engines: EJS 
-    + npm install ejs (addtional: VS code install EJS support extension)
-- templates: bootstrap zero
+    + app.use(express.static(path.join(__dirname, '/UI/'))); // use template dir
+    + app.set('views', './src/UI'); // app setting property 'views'
+    + app.set('view engine', 'ejs'); // app setting property 'view engine'
+    + app.get('/', (req, res) => {res.render('index')}); // app render HOMEPAGE
+- template engines: EJS 
+    + npm install ejs (addtional: VS install EJS support extension)
 
-3. Express Middleware/Function
+
+3. Express Web Framework 
 - app.js file: 
     + const express = require('express');
     + const router = express().Router();
