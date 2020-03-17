@@ -4,7 +4,7 @@
   "description": "Node Web Application Ownagon",
   "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "start": "npm-run-all --parallel lint debug",
     "app:main": "nodemon main",
     "debug": "@powershell -Command $env:DEBUG='app,app:*';nodemon main",
