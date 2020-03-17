@@ -5,7 +5,7 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "npm-run-all --parallel lint debug",
+    "start": "node ./src/app.js",
     "app:main": "nodemon main",
     "debug": "@powershell -Command $env:DEBUG='app,app:*';nodemon main",
     "lint": "eslint ./src/*"
