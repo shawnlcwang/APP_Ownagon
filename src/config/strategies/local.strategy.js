@@ -14,12 +14,12 @@ module.exports = function localStrategy() {
             //     username, password
             // };
             // done(null, user);
-            const url = 'mongodb://localhost:27017'; // standard default mongodb port
+            const url = 'mongodb://localhost:27017/OwnagonDB'; // standard default mongodb port
             const dbName = 'OwnagonDB';
             (async function mongo() {
                 let client;
                 try {
-                    client = await MongoClient.connect(url);
+                    client = await MongoClient.connect(process.env.DATABASE_URI || url, { useUnifiedTopology: true });
                     debug('Connecting to OwnagonDB: Log in authenticating...');
                     const db = client.db(dbName);
                     const col = await db.collection('users');
