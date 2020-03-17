@@ -36,11 +36,12 @@ module.exports = function localStrategy() {
                         done(null, user);
                     } else {
                         done(null, false);
+                        client.close();
                     }
                 } catch (err) {
                     debug(err.stack);
                 }
-                client.close();
+                // client.close();
             }());
         }
     ));
