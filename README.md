@@ -39,7 +39,8 @@
     + npm init
     + "main": "./src/app.js" 
 - bundling config file: 
-    + 
+    + webpack.config.dev.js
+    + webpack.config.prod.js
 - linting config file: /.eslintrc.js
     + node node_modules\eslint\bin\eslint.js --init
     + use a popular style guide: JS Airbnb style guides
@@ -123,6 +124,7 @@
 - app.js file: 
     + const sql = require('mssql');
     + optional approach only in router-level for NoSQL
+    + '/': index.ejs 
 - adminRoutes.js/bookRoutes.js file: 
     + const sql = require('mssql');
     + const mongoClient = require('mongodb').MongoClient;
@@ -137,15 +139,15 @@
     + npm install body-parser
 
 6. Authentication 
-- index.ejs file: 
-    + <form>
-    + <input>
 - app.js file: 
     + const bodyParser = require('body-parser');
     + const passport = require('passport');
     + const cookieParser = require('cookie-parser');
     + const session = require('express-session');
 - authRoutes.js file:
+    + '/auth/signup': signup.ejs
+    + '/auth/login': login.ejs
+    + '/auth/profile': profile.ejs
 - config directory: 
     + passport.js
     + local.strategy.js
@@ -154,7 +156,6 @@
     + npm install cookie-parser
     + npm install express-session
     + npm install passport-local <strategy>
-
 - application-level middleware: <app.js>
     + app.use(bodyParser.json()); 
     + app.use(bodyParser.urlencoded({ extended: false })); 
@@ -164,12 +165,12 @@
 - router-level middleware: <router.js>
     + authRouter.route('/signUp').METHOD((req, res) => {((asyn query){await}());})
 
-7. Third-Party APIs with Express
-- 3rd-party API: goodreads.com/api
+7. Services: Third-Party APIs 
+- serviceRoutes.js file: 
+    + '/services/tracker': http://demo.bugify.com/api
+- 3rd-party API: Bugify
     + applicaiton name: Ownagon
     + company name: Ownagon
-    + key: zIKByBcldOpKGkAmiSCyg
-    + secret: t25OWCoK9VKIoAFbRIjJ9lclt5AQvN9nxBsXCyFE
+    + key: 28accbe43ea112d9feb328d2c00b3eed
 - npm packages: 
     +   npm install axios
-    +   npm install xml2js
