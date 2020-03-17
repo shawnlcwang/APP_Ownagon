@@ -3,6 +3,9 @@ const { Strategy } = require('passport-local');
 const { MongoClient } = require('mongodb');
 const debug = require('debug')('app:local.strategy');
 
+// Heroku DATABASE_URI
+// mongodb+srv://shawnlcwang:Meaning1791@ownagondb-pizmb.mongodb.net/test?retryWrites=true&w=majority
+
 module.exports = function localStrategy() {
     passport.use(new Strategy(
         {

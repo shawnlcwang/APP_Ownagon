@@ -4,7 +4,10 @@ const debug = require('debug')('app:authRoutes');
 const passport = require('passport');
 
 const authRouter = express.Router();
-mongodb+srv://shawnlcwang:Meaning1791@ownagondb-pizmb.mongodb.net/test?retryWrites=true&w=majority
+
+// Heroku DATABASE_URI
+// mongodb+srv://shawnlcwang:Meaning1791@ownagondb-pizmb.mongodb.net/test?retryWrites=true&w=majority
+
 module.exports = function router(nav) {
     // authRouter.route('/')
     //     .get((req, res) => {
