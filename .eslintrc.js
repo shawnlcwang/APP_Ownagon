@@ -5,22 +5,22 @@ module.exports = {
   },
   extends: [
     //'plugin:react/recommended',
-    'airbnb',
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
+    // ecmaFeatures: {
+    //   jsx: true,
+    // },
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  // plugins: [
+  //   'react',
+  // ],
   rules: {
     // comma dangle
     "comma-dangle": 0,

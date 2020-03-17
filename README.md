@@ -58,6 +58,8 @@
     + npm install passport
     + npm install cookie-parser
     + npm install express-session
+    + npm install body-parser
+    + npm install axios
 - dev-dependency packages: 
     + npm install eslint --save-dev (additional: VS install ESlint extension)
     + npm install nodemon --save-dev (/package.json: "nodemonConfig"{})
