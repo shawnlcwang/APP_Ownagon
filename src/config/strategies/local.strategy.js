@@ -1,6 +1,7 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 const debug = require('debug')('app:local.strategy');
 
 // Heroku DATABASE_URI
@@ -31,6 +32,10 @@ module.exports = function localStrategy() {
                     // debug(user);
                     // debug(user.password);
                     // debug(password);
+                    // await mongoose.connect(process.env.DATABASE_URI || url, { useUnifiedTopology: true });
+                    // const userSchema = new mongoose.Schema({ username: String, password: String });
+                    // const User = mongoose.model('User', userSchema);
+                    // const user = await User.find({ username: `${username}`, password: `${password}` });
                     if (user.password === password) {
                         debug('Connected to OwnagonDB: Log in DONE');
                         done(null, user);
@@ -41,7 +46,7 @@ module.exports = function localStrategy() {
                 } catch (err) {
                     debug(err.stack);
                 }
-                // client.close();
+                client.close();
             }());
         }
     ));

@@ -56,6 +56,7 @@
     + npm install debug ($env:DEBUG='*';node app.js) 
     + npm install ejs (template engine)
     + npm install mongodb 
+    + npm install mongoose
     + npm install passport
     + npm install cookie-parser
     + npm install express-session
@@ -137,6 +138,8 @@
 - npm packages: 
     + npm install mssql
     + npm install body-parser
+    + npm install mongodb
+    + npm install mongoose
 
 6. Authentication 
 - app.js file: 
