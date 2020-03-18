@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const debug = require('debug')('app');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const { Server } = require('ws');
+// const { Server } = require('ws');
 // const webpack = require('webpack');
 // const config = require('../webpack.cinfig.dev');
 
@@ -22,7 +22,7 @@ console.log(`./: ${process.cwd()}`); // path current working directory
 */
 const app = express();
 const port = process.env.PORT || 3000; // process.env REPLACE app.configure()
-const wss = new Server({ server });
+// const wss = new Server({ server });
 // const config = {};
 
 
