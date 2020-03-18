@@ -28,7 +28,7 @@ module.exports = function router(nav) {
         })
         .post((req, res) => {
             const { username, password } = req.body;
-            const url = 'mongodb://localhost:27017/OwnagonDB'; // standard default mongodb port
+            const url = 'mongodb://localhost:27017'; // standard default mongodb port
             const dbName = 'OwnagonDB';
             (async function addUser() {
                 let client;
