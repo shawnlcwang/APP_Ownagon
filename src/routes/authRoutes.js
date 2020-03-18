@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const debug = require('debug')('app:authRoutes');
 const passport = require('passport');
 
@@ -34,7 +34,7 @@ module.exports = function router(nav) {
             (async function addUser() {
                 let client;
                 try {
-                    client = await mongoClient.connect(process.env.DATABASE_URI || url, { useUnifiedTopology: true });
+                    client = await mongoClient.connect(process.env.DATABASE_URI, { useUnifiedTopology: true });
                     debug('Connected to OwnagonDB');
                     const db = client.db(dbName);
                     const col = await db.collection('users');
