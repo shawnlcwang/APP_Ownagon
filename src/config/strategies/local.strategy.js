@@ -18,24 +18,16 @@ module.exports = function localStrategy() {
             //     username, password
             // };
             // done(null, user);
-            // const url = 'mongodb://localhost:27017'; // standard default mongodb port
+            const url = 'mongodb://localhost:27017'; // standard default mongodb port
             const dbName = 'OwnagonDB';
             (async function mongo() {
                 let client;
                 try {
-                    client = await MongoClient.connect(DATABASE_URI, { useUnifiedTopology: true });
+                    client = await MongoClient.connect(DATABASE_URI || url, { useUnifiedTopology: true });
                     debug('Connecting to OwnagonDB: Log in authenticating...');
                     const db = client.db(dbName);
                     const col = await db.collection('users');
                     const user = await col.findOne({ username });
-                    // debug(username);
-                    // debug(user);
-                    // debug(user.password);
-                    // debug(password);
-                    // await mongoose.connect(process.env.DATABASE_URI || url, { useUnifiedTopology: true });
-                    // const userSchema = new mongoose.Schema({ username: String, password: String });
-                    // const User = mongoose.model('User', userSchema);
-                    // const user = await User.find({ username: `${username}`, password: `${password}` });
                     if (user.password === password) {
                         debug('Connected to OwnagonDB: Log in DONE');
                         done(null, user);

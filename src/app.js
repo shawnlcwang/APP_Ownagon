@@ -1,7 +1,6 @@
 /*
  * NPM Packages
 */
-require('newrelic');
 const express = require('express');
 // const path = require('path');
 const bodyParser = require('body-parser');
@@ -42,9 +41,9 @@ app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/
 app.use(cookieParser());
 app.use(session({
     secret: 'anything',
-    // resave: false,
-    // saveUninitialized: true,
-    // cookie: { secure: true }
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
 }));
 
 require('./config/passport.js')(app);

@@ -29,12 +29,12 @@ module.exports = function router(nav) {
         })
         .post((req, res) => {
             const { username, password } = req.body;
-            // const url = 'mongodb://localhost:27017'; // standard default mongodb port
+            const url = 'mongodb://localhost:27017'; // standard default mongodb port
             const dbName = 'OwnagonDB';
             (async function addUser() {
                 let client;
                 try {
-                    client = await mongoClient.connect(DATABASE_URI, { useUnifiedTopology: true });
+                    client = await mongoClient.connect(DATABASE_URI || url, { useUnifiedTopology: true });
                     debug('Connected to OwnagonDB');
                     const db = client.db(dbName);
                     const col = await db.collection('users');
@@ -44,18 +44,6 @@ module.exports = function router(nav) {
                     req.login(results.ops[0], () => { // create user with .login created from passport.initialize()
                         res.redirect('/auth/profile');
                     });
-                    // await mongoose.connect(process.env.DATABASE_URI || url, { useUnifiedTopology: true });
-                    // const userSchema = new mongoose.Schema({ username: String, password: String });
-                    // const User = mongoose.model('User', userSchema);
-                    // const user = new User({ username: `${username}`, password: `${password}` });
-                    // // await User.create({ username: `${username}`, password: `${password}` });
-                    // debug('Connected to OwnagonDB: Sign Up DONE');
-                    // user.save((updateUser) => {
-                    //     req.login(updateUser, () => { // create user with .login created from passport.initialize()
-                    //         debug('Connected to OwnagonDB: /auth/profile');
-                    //         res.redirect('/auth/profile');
-                    //     });
-                    // });
                 } catch (err) {
                     debug(err);
                 }
