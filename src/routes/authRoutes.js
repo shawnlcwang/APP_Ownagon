@@ -29,12 +29,12 @@ module.exports = function router(nav) {
         })
         .post((req, res) => {
             const { username, password } = req.body;
-            const url = 'mongodb://localhost:27017'; // standard default mongodb port
+            // const url = 'mongodb://localhost:27017'; // standard default mongodb port
             const dbName = 'OwnagonDB';
             (async function addUser() {
                 let client;
                 try {
-                    client = await mongoClient.connect(DATABASE_URI || url, { useUnifiedTopology: true });
+                    client = await mongoClient.connect(DATABASE_URI, { useUnifiedTopology: true });
                     debug('Connected to OwnagonDB');
                     const db = client.db(dbName);
                     const col = await db.collection('users');
